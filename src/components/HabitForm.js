@@ -12,18 +12,17 @@ export default class HabitForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
     handleChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         });
     }
-
     handleSubmit(event) {
         Axios.post('/api/v1/createhabit', this.state)
             .then((res) => {
                 if (res.data.success) {
                     alert(res.data.message)
+                    this.props.redirect()
                 }
             })
             .catch((err) => {
@@ -33,9 +32,9 @@ export default class HabitForm extends React.Component {
             )
         event.preventDefault();
     }
-
     render() {
         return (
+            
             <form onSubmit={this.handleSubmit}>
                 <label>
                     title:
